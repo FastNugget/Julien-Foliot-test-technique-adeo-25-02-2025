@@ -1,0 +1,66 @@
+#### ONLY FOR TESTING WITHIN CONTAINER ON YOUR LAPTOP ####
+
+version: "3.5"
+
+services:
+  yaourtErpBackendApidomainDevDocker:
+    image: ${imageNameBackend}
+    ports:
+      - ${portBindBackend}
+    env_file:
+      - ${envFileBackend}
+    build:
+      context: ${contextBackend}
+      dockerfile: ${dockerFileBackend}
+    networks:
+      - networkApp
+
+  yaourtErpDatabaseDev1:
+    image: ${imageNameDatabase}
+    hostname: ${hostNameDatabase1}
+    ports:
+      - ${portBindDatabase1}
+    volumes:
+      - ${volumeDatabase1}
+    networks:
+      - networkApp
+    entrypoint: ["mongod", "--replSet", "myReplicaSet", "--bind_ip", "localhost,yaourtErpDatabaseDev1"]
+
+  yaourtErpDatabaseDev2:
+    image: ${imageNameDatabase}
+    hostname: ${hostNameDatabase2}
+    ports:
+      - ${portBindDatabase2}
+    volumes:
+      - ${volumeDatabase2}
+    networks:
+      - networkApp
+    entrypoint: ["mongod", "--replSet", "myReplicaSet", "--bind_ip", "localhost,yaourtErpDatabaseDev2"]
+
+  yaourtErpDatabaseDev3:
+    image: ${imageNameDatabase}
+    hostname: ${hostNameDatabase3}
+    ports:
+      - ${portBindDatabase3}
+    volumes:
+      - ${volumeDatabase3}
+    networks:
+      - networkApp
+    entrypoint: ["mongod", "--replSet", "myReplicaSet", "--bind_ip", "localhost,yaourtErpDatabaseDev3"]
+
+  databasePostSetup:
+    image: ${imageNameDatabase}
+    depends_on:
+      - yaourtErpDatabaseDev1
+      - yaourtErpDatabaseDev2
+      - yaourtErpDatabaseDev3
+    volumes:
+      - ./dev-tools/mongodb/script/mongodb_cluster_configuration.sh:/scripts/mongodb_cluster_configuration.sh
+    restart: "no"
+    networks:
+      - networkApp
+    entrypoint: [ "bash", "/scripts/mongodb_cluster_configuration.sh"]
+
+networks:
+  networkApp:
+    name: ${networkName}

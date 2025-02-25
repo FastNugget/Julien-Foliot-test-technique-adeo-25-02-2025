@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ############################ INCLUDES ############################ -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+
+    <!-- ############################ PROPERTIES ############################ -->
+    <property name="PATH_LOG_FILE_PREFIX" value="LOGBACK-OUTPUT/" />
+    <property name="LOG_FILE_NAME" value="Backend.log" />
+    <property name="PATH_LOG_FILE_ROLLING_PREFIX" value="LOGBACK-OUTPUT/HISTORY/" />
+    <property name="PATH_LOG_FILE_ROLLING_SUFFIX" value="/Backend-Log-%d{yyyy-MM-dd}.log" />
+
+    <!-- ############################## CUSTOM CONVERTERS ############################## -->
+    <conversionRule conversionWord="threadId" converterClass="com.onetranslate.common.log.ThreadIdLogbackConverter"/>
+
+    <!-- ############################ APPENDER ROLLING FILE ############################ -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PATH_LOG_FILE_PREFIX}${LOG_FILE_NAME}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${PATH_LOG_FILE_ROLLING_PREFIX}${LOG_FILE_NAME}${PATH_LOG_FILE_ROLLING_SUFFIX}</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1} [%t] %threadId %m%n</Pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- ############################ APPENDER LOGSTASH ############################ -->
+    <!--
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>smartcom-metaflon-0001-logstash:9999</destination>
+
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+    </appender>
+    -->
+
+    <!-- ############################ BIND ############################ -->
+    <root level="INFO">
+
+        <appender-ref ref="CONSOLE" />
+
+       <!-- DISABLED FOR KUBE, LOG ARE HANDLED BY DATADOG DIRECTLY
+       <appender-ref ref="ROLLING_FILE" />
+       -->
+    </root>
+
+
+    <!-- ############################ CONFIGURATION ############################ -->
+    <!--<logger name="org.springframework.web" level="DEBUG"/>-->
+
+</configuration>

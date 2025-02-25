@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "YaourtErp",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

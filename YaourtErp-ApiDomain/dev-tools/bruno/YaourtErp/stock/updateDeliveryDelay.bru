@@ -1,0 +1,11 @@
+meta {
+  name: updateDeliveryDelay
+  type: http
+  seq: 1
+}
+
+patch {
+  url: http://{{baseUrl}}{{basePath}}/stock/12/delivery/delay
+  body: json
+  auth: none
+}
