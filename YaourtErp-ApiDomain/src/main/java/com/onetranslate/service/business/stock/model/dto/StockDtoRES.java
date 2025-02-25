@@ -6,4 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StockDtoRES {
+
+    // -- Data
+    private String productName;
+    private int quantity;
+    private int deliveryDelay;
+
 }

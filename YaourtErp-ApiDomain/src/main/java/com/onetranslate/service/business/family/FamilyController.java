@@ -1,5 +1,7 @@
 package com.onetranslate.service.business.family;
 
+import com.onetranslate.service.business.family.model.dto.FamilyDtoREQ;
+import com.onetranslate.service.business.family.model.dto.FamilyDtoRES;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -8,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Slf4j(topic = "FamilyController")
 @RestController
 @RequestMapping("/api/v1")
@@ -17,7 +17,7 @@ import java.util.List;
 public class FamilyController {
 
     // -- VARS
-
+    private final FamilyService familyService;
 
     // -- INITIALISATOR ------------------------------------------------------------------------------------------------
 
@@ -28,18 +28,18 @@ public class FamilyController {
     // -- CONTROLLERS --------------------------------------------------------------------------------------------------
 
     @PostMapping(value = "/family", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> create(@RequestBody @Valid String body){
+    public ResponseEntity<FamilyDtoRES> create(@RequestBody @Valid FamilyDtoREQ body){
 
         // -- Work
-        throw new RuntimeException("Not implemented");
+        return ResponseEntity.ok(this.familyService.createFamily(body));
 
     }
 
     @PatchMapping(value = "/family/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> update(@RequestBody @Valid String body){
+    public ResponseEntity<FamilyDtoRES> update(@RequestBody @Valid FamilyDtoREQ body, @PathVariable("id") String id){
 
         // -- Work
-        throw new RuntimeException("Not implemented");
+        return ResponseEntity.ok(this.familyService.updateFamily(body, id));
     }
 
 

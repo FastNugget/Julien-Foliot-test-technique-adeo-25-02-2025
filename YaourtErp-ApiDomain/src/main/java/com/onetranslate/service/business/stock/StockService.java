@@ -1,9 +1,14 @@
 package com.onetranslate.service.business.stock;
 
 import com.onetranslate.service.business.stock.model.StockDao;
+import com.onetranslate.service.business.stock.model.dto.StockDtoREQ;
+import com.onetranslate.service.business.stock.model.dto.StockDtoRES;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -20,13 +25,19 @@ public class StockService {
 
     // -- VARS
     private final MongoTemplate mongoTemplate;
+    private ModelMapper modelMapper;
 
 
     // -- LIFECYCLE ----------------------------------------------------------------------------------------------------
 
     @PostConstruct
-    public void init() {}
+    public void init() {
 
+        // -- Set
+        this.modelMapper = new ModelMapper();
+        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+    }
 
     // -- CALLBACKS ----------------------------------------------------------------------------------------------------
 
@@ -52,10 +63,10 @@ public class StockService {
 
     }
 
-    public StockDao decreaseStock(String productName, int quantity){
+    public StockDao decreaseStock(String id, int quantity){
 
         // -- Get
-        StockDao stockDao = Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("productName").is(productName)), StockDao.class))
+        StockDao stockDao = Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))), StockDao.class))
                 .orElseThrow(() -> new RuntimeException("Stock not found"));
 
         // -- Decrease
@@ -63,7 +74,7 @@ public class StockService {
 
         // -- Update
         stockDao
-                = this.mongoTemplate.findAndModify(new Query().addCriteria(Criteria.where("productName").is(productName)),
+                = this.mongoTemplate.findAndModify(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))),
                 new Update().set("quantity", stockDao.getQuantity()),
                 FindAndModifyOptions.options().returnNew(true),
                 StockDao.class);
@@ -73,11 +84,24 @@ public class StockService {
 
     }
 
-    public StockDao getStock(String productName, int quantity){
+    public StockDao getStock(String id, int quantity){
 
         // -- Call
-        return Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("productName").is(productName)), StockDao.class))
+        return Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))), StockDao.class))
                 .orElseThrow(() -> new RuntimeException("Stock not found"));
+
+    }
+
+    public StockDtoRES updateDeliveryDelay(String id, StockDtoREQ stockDtoREQ){
+
+        // -- Get
+        StockDao stockDao = this.mongoTemplate.findAndModify(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))),
+                new Update().set("quantity", stockDtoREQ.getDeliveryDelay()),
+                FindAndModifyOptions.options().returnNew(true),
+                StockDao.class);
+
+        // -- Commit
+        return this.modelMapper.map(stockDao, StockDtoRES.class);
 
     }
 

@@ -16,7 +16,10 @@ public class StockDao {
 
     // -- Mongoid
     @Id private String id;
+
+    // -- Data
     private String productName;
     private int quantity;
+    private int deliveryDelay;
 
 }

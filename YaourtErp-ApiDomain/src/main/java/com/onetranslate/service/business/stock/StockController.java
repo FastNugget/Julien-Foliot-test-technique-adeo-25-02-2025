@@ -1,5 +1,7 @@
 package com.onetranslate.service.business.stock;
 
+import com.onetranslate.service.business.stock.model.dto.StockDtoREQ;
+import com.onetranslate.service.business.stock.model.dto.StockDtoRES;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -8,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Slf4j(topic = "StockController")
 @RestController
 @RequestMapping("/api/v1")
@@ -17,7 +17,7 @@ import java.util.List;
 public class StockController {
 
     // -- VARS
-
+    private final StockService stockService;
 
     // -- INITIALISATOR ------------------------------------------------------------------------------------------------
 
@@ -28,10 +28,10 @@ public class StockController {
     // -- CONTROLLERS --------------------------------------------------------------------------------------------------
 
     @PatchMapping(value = "/stock/{id}/delivery/delay", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> update(@RequestBody @Valid String body){
+    public ResponseEntity<StockDtoRES> update(@RequestBody @Valid StockDtoREQ stockDtoREQ, @PathVariable("id") String id){
 
         // -- Work
-        throw new RuntimeException("Not implemented");
+        return ResponseEntity.ok(this.stockService.updateDeliveryDelay(id, stockDtoREQ));
     }
 
 }
