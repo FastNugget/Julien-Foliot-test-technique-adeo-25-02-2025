@@ -5,5 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class YaourtDtoRES {
+public class YaourtComputeDtoRES {
+
+    private int yaourtNumber;
+
+
 }

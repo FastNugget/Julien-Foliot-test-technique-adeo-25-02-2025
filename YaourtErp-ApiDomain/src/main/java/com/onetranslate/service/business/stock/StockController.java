@@ -32,6 +32,7 @@ public class StockController {
 
         // -- Work
         return ResponseEntity.ok(this.stockService.updateDeliveryDelay(id, stockDtoREQ));
+
     }
 
 }

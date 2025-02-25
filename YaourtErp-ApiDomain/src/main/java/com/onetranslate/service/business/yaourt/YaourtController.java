@@ -1,13 +1,14 @@
 package com.onetranslate.service.business.yaourt;
 
+import com.onetranslate.service.business.yaourt.model.dto.YaourtComputeDtoREQ;
+import com.onetranslate.service.business.yaourt.model.dto.YaourtComputeDtoRES;
 import jakarta.annotation.PostConstruct;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j(topic = "YaourtController")
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class YaourtController {
 
     // -- VARS
+    private final YaourtService yaourtService;
 
 
     // -- INITIALISATOR ------------------------------------------------------------------------------------------------
@@ -27,11 +29,11 @@ public class YaourtController {
 
     // -- CONTROLLERS --------------------------------------------------------------------------------------------------
 
-    @GetMapping(value = "/yaourt/compute", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> compute(){
+    @GetMapping(value = "/yaourt/compute/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<YaourtComputeDtoRES> compute(@RequestBody @Valid YaourtComputeDtoREQ yaourtComputeDtoREQ, @PathVariable("id") String familyId){
 
         // -- Work
-        throw new RuntimeException("Not implemented");
+       return ResponseEntity.ok(this.yaourtService.computeYaourtConsumationByYearForFamily(familyId, yaourtComputeDtoREQ));
 
     }
 

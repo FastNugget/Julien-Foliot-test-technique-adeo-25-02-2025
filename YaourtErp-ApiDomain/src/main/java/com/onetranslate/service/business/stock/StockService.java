@@ -37,23 +37,31 @@ public class StockService {
         this.modelMapper = new ModelMapper();
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        // -- Create
+        this.createStock("yaourt", 6, 2,2);
+
     }
 
     // -- CALLBACKS ----------------------------------------------------------------------------------------------------
 
-    public StockDao createStock(String productName, int initialQuantity){
+    public StockDao createStock(String productName, int initialQuantity, int quantityMultiple, int deliveryDelay){
+
+        // -- Check & Get
+        Optional<StockDao> stockDaoOptional = Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("productName").is(productName)), StockDao.class));
 
         // -- Get
-        if(Optional.ofNullable(this.mongoTemplate.findOne(new Query().addCriteria(Criteria.where("productName").is(productName)), StockDao.class)).isPresent()){
+        if(stockDaoOptional.isPresent()){
 
             // -- Error
-            throw new RuntimeException("Stock already exists");
+            return stockDaoOptional.get();
 
         }
 
         StockDao stockDao = new StockDao();
         stockDao.setProductName(productName);
         stockDao.setQuantity(initialQuantity);
+        stockDao.setQuantityMultiple(quantityMultiple);
+        stockDao.setDeliveryDelay(deliveryDelay);
 
         // -- Update
         stockDao = this.mongoTemplate.save(stockDao);
@@ -74,7 +82,7 @@ public class StockService {
 
         // -- Update
         stockDao
-                = this.mongoTemplate.findAndModify(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))),
+            = this.mongoTemplate.findAndModify(new Query().addCriteria(Criteria.where("id").is(new ObjectId(id))),
                 new Update().set("quantity", stockDao.getQuantity()),
                 FindAndModifyOptions.options().returnNew(true),
                 StockDao.class);

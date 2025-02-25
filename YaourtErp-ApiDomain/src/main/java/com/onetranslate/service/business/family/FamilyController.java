@@ -42,5 +42,12 @@ public class FamilyController {
         return ResponseEntity.ok(this.familyService.updateFamily(body, id));
     }
 
+    @GetMapping(value = "/family/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FamilyDtoRES> get(@PathVariable("id") String id){
+
+        // -- Work
+        return ResponseEntity.ok(this.familyService.getFamily(id));
+
+    }
 
 }

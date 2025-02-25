@@ -5,5 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class YaourtDtoREQ {
+public class YaourtComputeDtoREQ {
+
+    private long timestampBegin;
+
+
 }

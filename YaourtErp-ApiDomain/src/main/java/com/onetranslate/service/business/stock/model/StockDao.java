@@ -20,6 +20,7 @@ public class StockDao {
     // -- Data
     private String productName;
     private int quantity;
+    private int quantityMultiple;
     private int deliveryDelay;
 
 }

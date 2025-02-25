@@ -41,6 +41,15 @@ public class FamilyService {
 
     }
 
+
+    public FamilyDtoRES getFamily(String familyId){
+
+        // -- Get
+        return this.modelMapper.map(this.familyRepository.findById(familyId), FamilyDtoRES.class);
+
+    }
+
+
     public FamilyDtoRES updateFamily(FamilyDtoREQ familyDtoREQ, String id){
 
         // -- Init
