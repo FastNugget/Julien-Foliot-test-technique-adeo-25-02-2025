@@ -1,7 +1,11 @@
 package com.onetranslate.service.yaourt;
 
 import com.onetranslate.service.family.FamilyService;
+import com.onetranslate.service.family.model.dto.FamilyDtoREQ;
 import com.onetranslate.service.family.model.dto.FamilyDtoRES;
+import com.onetranslate.service.stock.StockService;
+import com.onetranslate.service.stock.model.dto.StockDtoREQ;
+import com.onetranslate.service.stock.model.dto.StockDtoRES;
 import com.onetranslate.service.yaourt.model.dto.YaourtComputeDtoREQ;
 import com.onetranslate.service.yaourt.model.dto.YaourtComputeDtoRES;
 import jakarta.annotation.PostConstruct;
@@ -20,7 +24,10 @@ public class YaourtService {
 
     // -- VARS
     private final FamilyService familyService;
+    private final StockService stockService;
 
+    // -- MISC
+    private volatile boolean isInit = false;
 
     // -- LIFECYCLE ----------------------------------------------------------------------------------------------------
 
@@ -77,5 +84,45 @@ public class YaourtService {
 
     }
 
+
+    // -- MISC ---------------------------------------------------------------------------------------------------------
+
+    public void initAppData(){
+
+        // -- Check
+        if(this.isInit) return;
+
+        // -- Set family
+
+        // -- Init
+        FamilyDtoREQ familyDtoREQa = new FamilyDtoREQ();
+        familyDtoREQa.setConsummationHistoricMonday(1);
+        familyDtoREQa.setConsummationHistoricTuesday(2);
+        familyDtoREQa.setConsummationHistoricWednesday(1);
+        familyDtoREQa.setConsummationHistoricThursday(4);
+        familyDtoREQa.setConsummationHistoricFriday(9);
+        familyDtoREQa.setConsummationHistoricSaturday(6);
+        familyDtoREQa.setConsummationHistoricSunday(2);
+
+        // -- Call
+        FamilyDtoRES familyDtoRESa = this.familyService.createFamily(familyDtoREQa);
+
+
+        // -- Set stock
+
+        // -- Init
+        StockDtoREQ stockDtoREQa = new StockDtoREQ();
+        stockDtoREQa.setProductName("yaourt");
+        stockDtoREQa.setQuantity(2);
+        stockDtoREQa.setQuantityMultiple(2);
+        stockDtoREQa.setDeliveryDelay(2);
+
+        // -- Call
+        StockDtoRES stockDtoRESa = this.stockService.createStock(stockDtoREQa);
+
+        // -- Set
+        this.isInit = true;
+
+    }
 
 }

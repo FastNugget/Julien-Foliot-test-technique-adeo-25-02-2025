@@ -20,12 +20,14 @@ Fonctionnalités attendues :
    une durée de un an), pour éviter les ruptures de stock tout en ne surchargeant
    pas votre frigo.
    ○ Le stock de départ est de 6 yaourts.
+
 3. Interface utilisateur :
    ○ Permettre à l'utilisateur de modifier le délai de livraison, le profil
    hebdomadaire de consommation, et de lancer le calcul des quantités à
    acheter.
    ○ Afficher les résultats dans un tableau (dates et quantités à acheter).
    ○ Afficher une courbe des stocks quotidiens.
+
 4. Recherche d'un multiple alternatif :
    ○ Tester l'existence d'un autre multiple de paquet de yaourts (supérieur à 4) qui
    permettrait de réduire le stock moyen tout en évitant les ruptures de stock.

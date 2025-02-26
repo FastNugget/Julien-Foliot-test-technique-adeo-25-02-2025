@@ -37,5 +37,14 @@ public class YaourtController {
 
     }
 
+    // -- MISC ---------------------------------------------------------------------------------------------------------
+
+    @GetMapping(value = "/init", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void compute(){
+
+        // -- Work
+        this.yaourtService.initAppData();
+
+    }
 
 }

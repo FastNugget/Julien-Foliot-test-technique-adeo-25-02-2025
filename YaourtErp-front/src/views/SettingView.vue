@@ -1,5 +1,22 @@
 <script setup lang="ts">
 
+// Fonction pour effectuer la requête GET
+import axios from "axios";
+
+const initApp = async () => {
+
+  try {
+    const response = await axios.get('http://localhost:8080/api/v1/init'); // URL de test
+
+  } catch (err) {
+    window.alert("Une erreur est survenue lors de l'initialisation des données");
+    console.log(JSON.stringify(err))
+  } finally {
+
+  }
+};
+
+
 </script>
 
 <template>
@@ -16,7 +33,7 @@
 
       <div class="d-flex flex-row justify-content-around align-items-center flex-fill">
 
-        <button type="button" class="btn btn-primary p-1 m-0 px-2 align-self-center"
+        <button @click="initApp" type="button" class="btn btn-primary p-1 m-0 px-2 align-self-center"
                 style="background: hsl(125,99%,38%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 500 ">Click me 🚀</button>
 
       </div>

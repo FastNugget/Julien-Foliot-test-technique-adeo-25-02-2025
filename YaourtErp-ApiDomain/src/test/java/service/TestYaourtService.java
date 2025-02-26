@@ -1,6 +1,5 @@
 package service;
 
-import com.google.gson.Gson;
 import com.onetranslate.MainApplication;
 import com.onetranslate.service.family.FamilyService;
 import com.onetranslate.service.family.model.dto.FamilyDtoREQ;
