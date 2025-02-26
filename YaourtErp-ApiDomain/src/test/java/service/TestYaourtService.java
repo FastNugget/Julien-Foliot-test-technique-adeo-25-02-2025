@@ -92,7 +92,7 @@ public class TestYaourtService {
 
             // -- Call
             YaourtComputeDtoRES yaourtComputeDtoRES = this.yaourtService.computeYaourtConsumationByYearForFamily(familyDtoRESa.getId(), yaourtComputeDtoREQ);
-        System.out.println("res=" + new Gson().toJson(yaourtComputeDtoRES));
+
             // -- Assert
             Assertions.assertNotNull(yaourtComputeDtoRES);
 

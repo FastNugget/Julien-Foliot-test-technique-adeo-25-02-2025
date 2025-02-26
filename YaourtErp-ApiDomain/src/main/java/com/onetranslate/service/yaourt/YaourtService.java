@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Map;
 
 @Slf4j(topic = "YaourtService")
@@ -49,13 +50,14 @@ public class YaourtService {
         Instant instant = Instant.parse(yaourtComputeDtoREQ.getDateBegin());
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         LocalDate startDate = localDateTime.toLocalDate();
+        LocalDate endDate = localDateTime.with(TemporalAdjusters.lastDayOfYear()).toLocalDate();
 
         // -- Init
         int totalConsumption = 0;
         LocalDate currentDate = startDate;
 
         // -- Loop day of week
-        while (currentDate.getDayOfWeek() != DayOfWeek.SUNDAY.plus(1)) {
+        while (!currentDate.toString().equals(endDate.toString())) {
 
             // -- Add
             totalConsumption += YAOURT_CONSUMPTION.getOrDefault(currentDate.getDayOfWeek(), 0);
@@ -64,6 +66,7 @@ public class YaourtService {
             currentDate = currentDate.plusDays(1);
 
         }
+
 
         // -- Build
         YaourtComputeDtoRES yaourtComputeDtoRES = new YaourtComputeDtoRES();
