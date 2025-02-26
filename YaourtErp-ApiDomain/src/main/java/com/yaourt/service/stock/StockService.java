@@ -79,10 +79,10 @@ public class StockService {
 
     }
 
-    public StockDao getStock(String id){
-
+    public StockDtoRES getStock(String id){
+        this.stockRepository.findAll().forEach(System.out::println);
         // -- Call
-        return this.stockRepository.findById(Long.valueOf(id)).orElseThrow(() -> new RuntimeException("Stock not found"));
+        return this.stockRepository.findById(Long.valueOf(id)).map(a -> this.modelMapper.map(a, StockDtoRES.class)).orElseThrow(() -> new RuntimeException("Stock not found"));
 
     }
 
