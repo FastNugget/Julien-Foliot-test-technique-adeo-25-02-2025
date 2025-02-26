@@ -18,9 +18,6 @@ fi
 if [[ $MODE = 'start-db' ]]
 then
 
-  # -- Compile
-  ./mvnw -Dmaven.test.skip clean package spring-boot:repackage
-
   # -- Run
   docker image rm -f yaourt-erp/yaourt-erp-backend-apidomain-dev-docker:latest
   docker compose --env-file ./env/.env-docker-compose --progress plain build --no-cache

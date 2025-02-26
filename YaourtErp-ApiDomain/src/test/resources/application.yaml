@@ -1,0 +1,77 @@
+## SPRING CONFIGURATION ##
+spring:
+  application:
+    name: YAOURT-ERP
+  profiles:
+    active: ${PROFILE}
+  banner:
+    location: classpath:banner.txt
+  servlet:
+    multipart:
+      max-file-size: 3MB
+      max-request-size: 20MB
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  threads:
+    virtual:
+      enabled: true
+  task:
+    scheduling:
+      pool:
+        size: 200
+
+  datasource:
+    driverClassName: org.h2.Driver
+    password: changeme
+    #url: jdbc:h2:file:./database-h2
+    # To connect from sql client: jdbc:h2:tcp://localhost:8082/mem:database-h2
+    url: jdbc:h2:mem:database-h2
+    username: dkt
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+
+## SERVER ##
+server:
+  address: ${SERVER_ADDRESS}
+  port: ${SERVER_PORT}
+
+
+
+## SWAGGER ##
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    operationsSorter: method
+    path: /swagger-ui-custom.html
+
+## TRANSLATION ##
+translation:
+  configuration:
+    delay: 3000
+    initialDelay: 0
+    ## 5 mins ##
+    jobLockDelay: 480000
+    ## 2 hour ##
+    translationJobLockTimeout: 7200000
+  event:
+    configuration:
+      http:
+        delayRetry: 3000
+        maxRetry: 3
+
+## ENDPOINT SECURITY (list of endpoint are comma separated)##
+security:
+  endpoint:
+    public:
+      whitelist: /api/v1/registration/register,/favicon.ico,/swagger-ui/*,/api-docs/*,/api-docs
+
+
+## MISCELLANEOUS ##
+restclientfactory:
+  connection:
+    timeout: 15000

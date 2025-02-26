@@ -1,11 +1,15 @@
-## DATABASE ##
-spring:
-  data:
-    mongodb:
-      ## -- Only usefully for staging and prod, as it build its connection string, you can add additional request param like ?retryWrite=true&...
-      uriEnd: ""
-      username: ${MONGODB_USERNAME}
-      password: ${MONGODB_PASSWORD}
+datasource:
+  driverClassName: org.h2.Driver
+  password: changeme
+  #url: jdbc:h2:file:./database-h2
+  # To connect from sql client: jdbc:h2:tcp://localhost:8082/mem:database-h2
+  url: jdbc:h2:mem:database-h2
+  username: dkt
+jpa:
+  database-platform: org.hibernate.dialect.H2Dialect
+  defer-datasource-initialization: true
+  hibernate:
+    ddl-auto: create-drop
 
 ## LOGS ##
 logging:

@@ -1,0 +1,28 @@
+## DATABASE ##
+spring:
+  data:
+    mongodb:
+      ## -- Only usefully for staging and prod, as it build its connection string, you can add additional request param like ?retryWrite=true&...
+      uriEnd: "retryWrites=false&authSource=admin"
+      username: ""
+      password: ""
+
+## LOGS ##
+logging:
+  config: classpath:logback.xml
+  filter:
+    enabled: true
+  level:
+    httpclient:
+      wire: DEBUG
+    org:
+      apache:
+        http: DEBUG
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
