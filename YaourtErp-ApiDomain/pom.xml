@@ -307,7 +307,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.onetranslate.MainApplication</mainClass>
+                    <mainClass>com.yaourt.MainApplication</mainClass>
                 </configuration>
             </plugin>
 

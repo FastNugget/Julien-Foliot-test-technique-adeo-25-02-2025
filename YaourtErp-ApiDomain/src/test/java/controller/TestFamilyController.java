@@ -2,10 +2,10 @@ package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.onetranslate.MainApplication;
-import com.onetranslate.service.family.FamilyController;
-import com.onetranslate.service.family.model.dto.FamilyDtoREQ;
-import com.onetranslate.service.family.model.dto.FamilyDtoRES;
+import com.yaourt.MainApplication;
+import com.yaourt.service.family.FamilyController;
+import com.yaourt.service.family.model.dto.FamilyDtoREQ;
+import com.yaourt.service.family.model.dto.FamilyDtoRES;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;

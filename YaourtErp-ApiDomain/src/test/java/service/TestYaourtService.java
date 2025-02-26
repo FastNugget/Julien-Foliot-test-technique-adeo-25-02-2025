@@ -1,15 +1,15 @@
 package service;
 
-import com.onetranslate.MainApplication;
-import com.onetranslate.service.family.FamilyService;
-import com.onetranslate.service.family.model.dto.FamilyDtoREQ;
-import com.onetranslate.service.family.model.dto.FamilyDtoRES;
-import com.onetranslate.service.stock.StockService;
-import com.onetranslate.service.stock.model.dto.StockDtoREQ;
-import com.onetranslate.service.stock.model.dto.StockDtoRES;
-import com.onetranslate.service.yaourt.YaourtService;
-import com.onetranslate.service.yaourt.model.dto.YaourtComputeDtoREQ;
-import com.onetranslate.service.yaourt.model.dto.YaourtComputeDtoRES;
+import com.yaourt.MainApplication;
+import com.yaourt.service.family.FamilyService;
+import com.yaourt.service.family.model.dto.FamilyDtoREQ;
+import com.yaourt.service.family.model.dto.FamilyDtoRES;
+import com.yaourt.service.stock.StockService;
+import com.yaourt.service.stock.model.dto.StockDtoREQ;
+import com.yaourt.service.stock.model.dto.StockDtoRES;
+import com.yaourt.service.yaourt.YaourtService;
+import com.yaourt.service.yaourt.model.dto.YaourtComputeDtoREQ;
+import com.yaourt.service.yaourt.model.dto.YaourtComputeDtoRES;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

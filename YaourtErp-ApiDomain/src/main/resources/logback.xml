@@ -13,7 +13,7 @@
     <property name="PATH_LOG_FILE_ROLLING_SUFFIX" value="/Backend-Log-%d{yyyy-MM-dd}.log" />
 
     <!-- ############################## CUSTOM CONVERTERS ############################## -->
-    <conversionRule conversionWord="threadId" converterClass="com.onetranslate.common.log.ThreadIdLogbackConverter"/>
+    <conversionRule conversionWord="threadId" converterClass="com.yaourt.common.log.ThreadIdLogbackConverter"/>
 
     <!-- ############################ APPENDER ROLLING FILE ############################ -->
     <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">

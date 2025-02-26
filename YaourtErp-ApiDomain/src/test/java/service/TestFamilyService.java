@@ -1,10 +1,10 @@
 package service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onetranslate.MainApplication;
-import com.onetranslate.service.family.FamilyService;
-import com.onetranslate.service.family.model.dto.FamilyDtoREQ;
-import com.onetranslate.service.family.model.dto.FamilyDtoRES;
+import com.yaourt.MainApplication;
+import com.yaourt.service.family.FamilyService;
+import com.yaourt.service.family.model.dto.FamilyDtoREQ;
+import com.yaourt.service.family.model.dto.FamilyDtoRES;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;

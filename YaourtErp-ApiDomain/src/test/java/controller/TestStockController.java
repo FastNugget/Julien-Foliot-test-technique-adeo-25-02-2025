@@ -2,10 +2,10 @@ package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.onetranslate.MainApplication;
-import com.onetranslate.service.stock.StockController;
-import com.onetranslate.service.stock.model.dto.StockDtoREQ;
-import com.onetranslate.service.stock.model.dto.StockDtoRES;
+import com.yaourt.MainApplication;
+import com.yaourt.service.stock.StockController;
+import com.yaourt.service.stock.model.dto.StockDtoREQ;
+import com.yaourt.service.stock.model.dto.StockDtoRES;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
