@@ -5,18 +5,21 @@ import TitleView from "@/views/TitleView.vue";
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; width: 100%">
+  <div class="d-flex flex-column gap-2 w-100">
 
+    <header class="d-flex flex-column gap-2 w-100">
 
-    <header style="display: flex; flex-direction: column; gap:30px; width: 100%">
-      <img alt="Vue logo" class="logo" src="@/assets/yogourt.png" width="200" height="200" style="margin:0;"/>
+      <img alt="Vue logo" class="logo m-0" src="@/assets/yogourt.png" width="200" height="200"/>
 
-      <div class="wrapper" style="display:flex;flex-direction:row;align-items:center;width:100%">
+      <div class="wrapper flex-row align-items-center justify-center w-100">
         <TitleView msg="Yaourt ERP" />
 
-        <nav style="display:flex; justify-content: center; align-items: center">
-          <RouterLink to="/">Compute</RouterLink>
-          <RouterLink to="/settings">Settings</RouterLink>
+        <nav class="d-flex flex-row justify-content-around align-items-center">
+          <div class="d-flex flex-row justify-center align-items-center">
+            <RouterLink to="/" >Compute</RouterLink>
+            <RouterLink to="/settings" >Settings</RouterLink>
+          </div>
+
         </nav>
       </div>
 
@@ -49,13 +52,23 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: red!important;
+  text-decoration: none!important;
 }
 
 nav a.router-link-exact-active:hover {
-  background-color: transparent;
+  background-color: transparent!important;
 }
 
+nav a {
+  color: #575757!important;
+  text-decoration: none!important;
+  background-color: transparent!important;
+}
+
+nav a:hover {
+  background-color: transparent;
+}
 nav a {
   display: inline-block;
   padding: 0 1rem;
@@ -83,8 +96,7 @@ nav a:first-of-type {
   }
 
   nav {
-    text-align: left;
-    margin-left: -1rem;
+
     font-size: 1rem;
 
     padding: 1rem 0;
