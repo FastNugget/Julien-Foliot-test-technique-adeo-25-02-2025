@@ -80,7 +80,7 @@ public class StockService {
     }
 
     public StockDtoRES getStock(String id){
-        this.stockRepository.findAll().forEach(System.out::println);
+
         // -- Call
         return this.stockRepository.findById(Long.valueOf(id)).map(a -> this.modelMapper.map(a, StockDtoRES.class)).orElseThrow(() -> new RuntimeException("Stock not found"));
 
@@ -90,6 +90,7 @@ public class StockService {
 
         // -- Get
         StockDao stockDao = this.modelMapper.map(stockDtoREQ, StockDao.class);
+        stockDao.setId(Long.parseLong(id));
 
         // -- Save
         stockDao = this.stockRepository.save(stockDao);

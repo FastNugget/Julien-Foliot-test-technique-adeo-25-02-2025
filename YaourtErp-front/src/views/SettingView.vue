@@ -7,7 +7,7 @@ import {ref} from "vue";
 import {StockDtoReq} from "@/model/StockDtoReq.ts";
 
 // -- VARS UI
-const numberInput = ref();
+const deliveryDelayInput = ref();
 
 // -- VARS
 const stockDtoRes = ref<StockDtoRes | null>(null);
@@ -18,7 +18,7 @@ const initApp = async () => {
 
   try {
     const response = await axios.get('http://localhost:8080/api/v1/init');
-    await getStock();
+    getStock();
   } catch (err) {
     window.alert("Une erreur est survenue lors de l'initialisation des données");
 
@@ -51,16 +51,19 @@ const patchDelivery = async () => {
   }
 
 
-  if (!numberInput.value) {
+  if (!deliveryDelayInput.value) {
     window.alert("Veuillez entré un nombre valide");
     return;
   }
 
   // -- Call
   try {
-    const stockReq:StockDtoReq = new StockDtoReq(stockDtoRes.value?.productName??'', stockDtoRes.value?.quantity??-1, stockDtoRes.value?.quantityMultiple??0, stockDtoRes.value?.deliveryDelay??0);
+    const stockReq:StockDtoReq = new StockDtoReq(stockDtoRes.value?.productName??'', stockDtoRes.value?.quantity??-1, stockDtoRes.value?.quantityMultiple??0, deliveryDelayInput.value);
     const stockResponse = await axios.patch(`http://localhost:8080/api/v1/stock/${stockDtoRes.value?.id??-1}/delivery/delay`, stockReq);
     stockDtoRes.value = stockResponse.data as StockDtoRes;
+
+    getStock();
+
   } catch (err) {
     window.alert("Une erreur est survenue lors de la modification du délai de livraison");
 
@@ -114,7 +117,7 @@ const patchDelivery = async () => {
       </div>
 
       <div class="d-flex flex-row justify-center align-items-center ">
-        <input v-model="numberInput" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center"
+        <input v-model="deliveryDelayInput" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center"
                style="border-radius: 6px; border-width: 0; background: rgba(110,110,110,0.11);min-height: 23px!important;
                color:#393939; font-size: 12px; font-weight: 600"/>
       </div>

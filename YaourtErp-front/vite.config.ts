@@ -17,7 +17,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/api/**': {
         target: 'http://localhost:8080', // Redirige toutes les requêtes /api/* vers le backend
         changeOrigin: false,
         secure: false
