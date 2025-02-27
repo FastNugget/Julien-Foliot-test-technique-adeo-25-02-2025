@@ -1,3 +1,5 @@
+import type {DailyConsumption} from "@/model/yaourt/DailyConsumption.ts";
+
 export class YaourtComputeDtoRES {
 
     constructor(public yaourtNumber:number, public dailyConsumptionList:Array<DailyConsumption>) {}
@@ -5,8 +7,3 @@ export class YaourtComputeDtoRES {
 
 }
 
-export class DailyConsumption {
-
-    constructor(public date:string, public consumption:number) {}
-
-}
