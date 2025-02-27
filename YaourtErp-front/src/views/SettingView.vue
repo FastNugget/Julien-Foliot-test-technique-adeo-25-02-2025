@@ -17,21 +17,18 @@ const stockDtoRes = ref<StockDtoRes | null>(null);
 onMounted(() => {
 
   // -- Get stock
-  get_InitApp();
+  initVueData();
 
 });
 
 // -- CALLBACKS HTTP -----------------------------------------------------------------
 
-const get_InitApp = async () => {
+const initVueData = async () => {
 
   // -- Safe
   try {
 
-    // -- Init data
-    const response = await axios.get('http://localhost:8080/api/v1/init');
-
-    // -- Get stock
+    // -- Init
     get_Stock();
     get_Family();
 

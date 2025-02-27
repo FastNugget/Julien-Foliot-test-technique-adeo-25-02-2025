@@ -33,12 +33,20 @@ public class YaourtService {
     // -- LIFECYCLE ----------------------------------------------------------------------------------------------------
 
     @PostConstruct
-    public void init() {}
+    public void init() {
+
+        // -- Init
+        this.initAppData();
+
+    }
 
 
     // -- CALLBACKS ----------------------------------------------------------------------------------------------------
 
     public YaourtComputeDtoRES computeYaourtConsumationByYearForFamily(String familyId, YaourtComputeDtoREQ yaourtComputeDtoREQ){
+
+        // -- Init
+        YaourtComputeDtoRES yaourtComputeDtoRES = new YaourtComputeDtoRES();
 
         // -- Check
         FamilyDtoRES familyDtoRES = this.familyService.getFamily(familyId);
@@ -73,11 +81,16 @@ public class YaourtService {
             // -- Shift
             currentDate = currentDate.plusDays(1);
 
+            // -- Add
+            yaourtComputeDtoRES.getDailyConsummationList()
+                    .add(new YaourtComputeDtoRES.DailyConsummation(
+                            currentDate.toString(),
+                            YAOURT_CONSUMPTION.getOrDefault(currentDate.getDayOfWeek(), 0)));
+
         }
 
 
         // -- Build
-        YaourtComputeDtoRES yaourtComputeDtoRES = new YaourtComputeDtoRES();
         yaourtComputeDtoRES.setYaourtNumber(totalConsumption);
 
         // -- Commit
