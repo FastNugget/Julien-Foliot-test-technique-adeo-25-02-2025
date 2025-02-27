@@ -8,20 +8,21 @@ import {YaourtComputeDtoREQ} from "@/model/yaourt/YaourtComputeDtoREQ.ts";
 import {StockDtoRes} from "@/model/stock/StockDtoRes.ts";
 import { LineChart } from "vue-chart-3";
 import {Chart, registerables, TimeScale} from "chart.js";
+import zoomPlugin from "chartjs-plugin-zoom";
 import "chartjs-adapter-moment"; // 📌 Adaptateur obligatoire pour l'échelle de temps
 
 
 // -- CONF --------------------------------------------------------------------------
-Chart.register(...registerables, TimeScale); // 🔹 Enregistre les composants de Chart.js
+Chart.register(...registerables, TimeScale, zoomPlugin); // 🔹 Enregistre les composants de Chart.js
 // Configuration du graphique
 const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
   scales: {
     x: {
-      type: "time", // 📌 Activer l'échelle de temps
+      type: "time",
       time: {
-        unit: "day", // 📌 Affichage par jour
+        unit: "day",
         tooltipFormat: "YYYY-MM-DD"
       },
       title: {
@@ -33,6 +34,23 @@ const chartOptions = ref({
       title: {
         display: true,
         text: "Consommation"
+      }
+    }
+  },
+  plugins: {
+    zoom: {
+      pan: {
+        enabled: true, // 📌 Permet de faire glisser le graphique horizontalement
+        mode: "x"
+      },
+      zoom: {
+        wheel: {
+          enabled: true // 📌 Active le zoom avec la molette de la souris
+        },
+        pinch: {
+          enabled: true // 📌 Active le zoom tactile sur mobile
+        },
+        mode: "x"
       }
     }
   }
@@ -275,7 +293,7 @@ const getNumberColis = () => {
     </div>
 
     <!-- Graphique -->
-    <div class="d-flex flex-row justify-content-around align-items-center mb-1 mt-1">
+    <div class="d-flex flex-row justify-content-around align-items-center mb-1 mt-1" v-if="quantityToBuy != 0">
       <LineChart :chartData="chartData2" :options="chartOptions" />
     </div>
   </div>
