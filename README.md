@@ -3,10 +3,16 @@ ___
 
 
 ### This is a mono repo
-👉🏻 Open [YaourtErp-ApiDomain] and start the server<br>
-👉🏻 Open [YaourtErp-front] and start the webserver
+### 👉🏻 Open [YaourtErp-ApiDomain]
 
-Now enjoy the app at http://localhost:5173/
+- to start the mongo cluster, run ```./script-start-compose-dev.sh start-db```
+- then start the server<br>
+
+### 👉🏻 Open [YaourtErp-front]
+- start the webserver
+
+### Now enjoy the app at http://localhost:5173/
+<br>
 
 ___
 ### Here is the subject of the project
