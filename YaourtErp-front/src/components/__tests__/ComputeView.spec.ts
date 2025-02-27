@@ -3,8 +3,6 @@ import { shallowMount } from "@vue/test-utils";
 import ComputeView from "@/views/ComputeView.vue";
 import { YaourtComputeDtoRES } from "@/model/yaourt/YaourtComputeDtoRES";
 import { DailyConsumption } from "@/model/yaourt/DailyConsumption";
-import { vi } from "vitest";
-import axios from "axios";
 
 vi.mock("axios", () => ({
     create: vi.fn(() => ({
