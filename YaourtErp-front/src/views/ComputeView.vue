@@ -9,7 +9,7 @@ import {StockDtoRes} from "@/model/stock/StockDtoRes.ts";
 import { LineChart } from "vue-chart-3";
 import {Chart, registerables, TimeScale} from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
-import "chartjs-adapter-moment"; // 📌 Adaptateur obligatoire pour l'échelle de temps
+import "chartjs-adapter-moment";
 
 
 // -- CONF --------------------------------------------------------------------------
@@ -33,7 +33,7 @@ const chartOptions = ref({
     y: {
       title: {
         display: true,
-        text: "Consommation"
+        text: "Planning"
       }
     }
   },
@@ -69,20 +69,18 @@ onMounted(() => {
 
 // -- CALLBACKS HTTP -----------------------------------------------------------------
 
-
 // -- VARS
 const familyId = 1;
 const startDate = ref<string>('2025-01-06');
 const isoDate = ref("");
-
 
 const stockDtoRes = ref<StockDtoRes | null>(null);
 const yaourtDtoRES = ref<YaourtComputeDtoRES | null>(null);
 const quantityToBuy = ref<number>(0);
 const quantityColisToBuy = ref<number>(0);
 
-// 🔹 Extraction des données pour la courbe
-const chartData2 = computed(() => ({
+
+const chartData = computed(() => ({
   labels: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.date)??[], // Dates en labels
   datasets: [
     {
@@ -213,29 +211,6 @@ const setQuantityToBuy = async () => {
 
 }
 
-// -- Compute yaourts
-const getNumberColis = () => {
-
-  // -- Safe
-  try {
-
-    // -- Check
-    if(yaourtDtoRES.value == null || stockDtoRes.value == null) {return 0;}
-
-    // -- Compute
-    let res1:number = (yaourtDtoRES.value.yaourtNumber??0) % (stockDtoRes.value.quantityMultiple??0);
-    let res2:number = Math.floor((yaourtDtoRES.value.yaourtNumber??0) / (stockDtoRes.value.quantityMultiple??0));
-    let res3:number = res2 + res1;
-
-    // -- Commit
-    return res3;
-
-  } catch (err) {return 0;
-  } finally {}
-
-}
-
-
 </script>
 
 <template>
@@ -329,8 +304,6 @@ const getNumberColis = () => {
       </div>
     </div>
 
-
-
     <div class="d-flex flex-column justify-center align-items-center gap-2 w-100 table-container" v-if="quantityToBuy != 0">
 
       <table>
@@ -345,12 +318,13 @@ const getNumberColis = () => {
 
     <!-- Graphique -->
     <div class="d-flex flex-row justify-content-around align-items-center mb-1 mt-1" v-if="quantityToBuy != 0">
-      <LineChart :chartData="chartData2" :options="chartOptions" />
+      <LineChart :chartData="chartData" :options="chartOptions" />
     </div>
   </div>
 </template>
 
 <style scoped>
+
 .table-container {
   width: 100%;
   max-width: 400px; /* Largeur maximale du tableau */
@@ -358,7 +332,6 @@ const getNumberColis = () => {
   overflow-y: auto; /* Activation du scroll vertical */
   border: 1px solid #ccc; /* Bordure pour visibilité */
 }
-
 
 table {
   width: 100%;
@@ -376,4 +349,5 @@ th {
   position: sticky;
   top: 0;
 }
+
 </style>
