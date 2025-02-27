@@ -56,19 +56,22 @@ public class YaourtService {
         // -- Compute
         Map<DayOfWeek, Integer> YAOURT_CONSUMPTION
             = Map.of(
-                DayOfWeek.MONDAY, familyDtoRES.getConsummationHistoricMonday(),
-                DayOfWeek.TUESDAY, familyDtoRES.getConsummationHistoricTuesday(),
-                DayOfWeek.WEDNESDAY, familyDtoRES.getConsummationHistoricWednesday(),
-                DayOfWeek.THURSDAY, familyDtoRES.getConsummationHistoricThursday(),
-                DayOfWeek.FRIDAY, familyDtoRES.getConsummationHistoricFriday(),
-                DayOfWeek.SATURDAY, familyDtoRES.getConsummationHistoricSaturday(),
-                DayOfWeek.SUNDAY, familyDtoRES.getConsummationHistoricSunday());
+                DayOfWeek.MONDAY, familyDtoRES.getConsumptionHistoricMonday(),
+                DayOfWeek.TUESDAY, familyDtoRES.getConsumptionHistoricTuesday(),
+                DayOfWeek.WEDNESDAY, familyDtoRES.getConsumptionHistoricWednesday(),
+                DayOfWeek.THURSDAY, familyDtoRES.getConsumptionHistoricThursday(),
+                DayOfWeek.FRIDAY, familyDtoRES.getConsumptionHistoricFriday(),
+                DayOfWeek.SATURDAY, familyDtoRES.getConsumptionHistoricSaturday(),
+                DayOfWeek.SUNDAY, familyDtoRES.getConsumptionHistoricSunday());
 
         // -- To Instant (ISO 8601)
         Instant instant = Instant.parse(yaourtComputeDtoREQ.getDateBegin());
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         LocalDate startDate = localDateTime.toLocalDate();
         LocalDate endDate = localDateTime.with(TemporalAdjusters.lastDayOfYear()).toLocalDate();
+
+        // -- Check delivery time
+        startDate = startDate.minusDays(stockDtoRES.getDeliveryDelay());
 
         // -- Init
         int totalConsumption = 0;
@@ -80,14 +83,14 @@ public class YaourtService {
             // -- Add
             totalConsumption += YAOURT_CONSUMPTION.getOrDefault(currentDate.getDayOfWeek(), 0);
 
-            // -- Shift
-            currentDate = currentDate.plusDays(1);
-
             // -- Add
-            yaourtComputeDtoRES.getDailyConsummationList()
-                    .add(new YaourtComputeDtoRES.DailyConsummation(
+            yaourtComputeDtoRES.getDailyConsumptionList()
+                    .add(new YaourtComputeDtoRES.DailyConsumption(
                             currentDate.toString(),
                             YAOURT_CONSUMPTION.getOrDefault(currentDate.getDayOfWeek(), 0)));
+
+            // -- Shift
+            currentDate = currentDate.plusDays(1);
 
         }
 
@@ -112,13 +115,13 @@ public class YaourtService {
 
         // -- Init
         FamilyDtoREQ familyDtoREQa = new FamilyDtoREQ();
-        familyDtoREQa.setConsummationHistoricMonday(3);
-        familyDtoREQa.setConsummationHistoricTuesday(3);
-        familyDtoREQa.setConsummationHistoricWednesday(3);
-        familyDtoREQa.setConsummationHistoricThursday(3);
-        familyDtoREQa.setConsummationHistoricFriday(3);
-        familyDtoREQa.setConsummationHistoricSaturday(4);
-        familyDtoREQa.setConsummationHistoricSunday(4);
+        familyDtoREQa.setConsumptionHistoricMonday(3);
+        familyDtoREQa.setConsumptionHistoricTuesday(3);
+        familyDtoREQa.setConsumptionHistoricWednesday(3);
+        familyDtoREQa.setConsumptionHistoricThursday(3);
+        familyDtoREQa.setConsumptionHistoricFriday(3);
+        familyDtoREQa.setConsumptionHistoricSaturday(4);
+        familyDtoREQa.setConsumptionHistoricSunday(4);
 
         // -- Call
         FamilyDtoRES familyDtoRESa = this.familyService.createFamily(familyDtoREQa);
@@ -129,7 +132,7 @@ public class YaourtService {
         // -- Init
         StockDtoREQ stockDtoREQa = new StockDtoREQ();
         stockDtoREQa.setProductName("yaourt");
-        stockDtoREQa.setQuantity(3);
+        stockDtoREQa.setQuantity(6);
         stockDtoREQa.setQuantityMultiple(2);
         stockDtoREQa.setDeliveryDelay(2);
 

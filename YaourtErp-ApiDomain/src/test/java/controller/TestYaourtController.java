@@ -91,13 +91,13 @@ public class TestYaourtController {
 
         // -- Call
         FamilyDtoREQ familyDtoREQa = new FamilyDtoREQ();
-        familyDtoREQa.setConsummationHistoricMonday(1);
-        familyDtoREQa.setConsummationHistoricTuesday(2);
-        familyDtoREQa.setConsummationHistoricWednesday(1);
-        familyDtoREQa.setConsummationHistoricThursday(4);
-        familyDtoREQa.setConsummationHistoricFriday(9);
-        familyDtoREQa.setConsummationHistoricSaturday(6);
-        familyDtoREQa.setConsummationHistoricSunday(2);
+        familyDtoREQa.setConsumptionHistoricMonday(1);
+        familyDtoREQa.setConsumptionHistoricTuesday(2);
+        familyDtoREQa.setConsumptionHistoricWednesday(1);
+        familyDtoREQa.setConsumptionHistoricThursday(4);
+        familyDtoREQa.setConsumptionHistoricFriday(9);
+        familyDtoREQa.setConsumptionHistoricSaturday(6);
+        familyDtoREQa.setConsumptionHistoricSunday(2);
 
         FamilyDtoRES familyDtoRES = this.familyService.createFamily(familyDtoREQa);
         assertThat(familyDtoRES).isNotNull();

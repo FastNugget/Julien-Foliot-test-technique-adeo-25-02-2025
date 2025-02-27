@@ -132,13 +132,13 @@ const get_Stock = async () => {
 // -- Compute yaourts
 const calculateAverageConsumption = ():number => {
 
-  ///
-  if (!yaourtDtoRES?.value?.dailyConsumptionList || yaourtDtoRES?.value?.dailyConsumptionList.length === 0) {
-    return 0; // Évite la division par zéro
-  }
+  // -- Check
+  if (!yaourtDtoRES?.value?.dailyConsumptionList || yaourtDtoRES?.value?.dailyConsumptionList.length === 0) {return 0;}
 
+  // -- Init
   const totalConsumption:Array<number>= yaourtDtoRES?.value?.dailyConsumptionList.map(a => a.consumption);
 
+  // -- Compute and Commit
   return Math.max(...totalConsumption); // On arrondit la moyenne
 }
 
@@ -154,16 +154,15 @@ const findBestMultiple = (): number => {
 
   // -- Compute
   let averageConsumption: number = calculateAverageConsumption();
-  if (averageConsumption <= 4) {
-    return 5; // On retourne 5 car on veut un multiple supérieur à 4
-  }
+  if (averageConsumption <= 4) {return 5;}
 
+  // -- Set
   let bestMultiple = averageConsumption; // On commence par la moyenne arrondie
 
-  while (bestMultiple % averageConsumption !== 0 || bestMultiple <= 4) {
-    bestMultiple++; // On incrémente jusqu'à trouver un multiple optimal
-  }
+  // -- Loop
+  while (bestMultiple % averageConsumption !== 0 || bestMultiple <= 4) {bestMultiple++;}
 
+  // -- Commit
   return bestMultiple;
 }
 
@@ -171,7 +170,10 @@ const findBestMultiple = (): number => {
 
 const setQuantityToBuy = async () => {
 
+  // -- Check
   if (!startDate.value) return;
+
+  // -- Init
   const localDate = new Date(startDate.value);
   isoDate.value = localDate.toISOString(); // ✅ Convertit en format UTC ISO 8601
 
@@ -204,9 +206,10 @@ const setQuantityToBuy = async () => {
     quantityColisToBuy.value = res6;
 
   } catch (err) {
+
+    // -- Handle
     return 0;
-  } finally {
-  }
+  } finally {}
 
 }
 
@@ -285,6 +288,17 @@ const getNumberColis = () => {
 
     <div class="d-flex flex-row justify-center align-items-center gap-2">
       <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Delivery delay:</h6>
+      </div>
+
+      <div class="d-flex flex-row justify-center align-items-center ">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">{{quantityToBuy != 0?stockDtoRes?.deliveryDelay??0:0}}</h6>
+      </div>
+
+    </div>
+
+    <div class="d-flex flex-row justify-center align-items-center gap-2">
+      <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
         <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Average consumption:</h6>
       </div>
 
@@ -308,7 +322,7 @@ const getNumberColis = () => {
         <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center" >Date</h6>
       </div>
       <div class="d-flex flex-row justify-content-around align-items-center gap-2 w-50 ">
-        <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Consumption</h6>
+        <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Order</h6>
       </div>
     </div>
 

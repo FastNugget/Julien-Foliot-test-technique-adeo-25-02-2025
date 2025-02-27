@@ -10,12 +10,12 @@ public class FamilyDtoRES {
     // -- VARS
     private String id;
 
-    private int consummationHistoricMonday;
-    private int consummationHistoricTuesday;
-    private int consummationHistoricWednesday;
-    private int consummationHistoricThursday;
-    private int consummationHistoricFriday;
-    private int consummationHistoricSaturday;
-    private int consummationHistoricSunday;
+    private int consumptionHistoricMonday;
+    private int consumptionHistoricTuesday;
+    private int consumptionHistoricWednesday;
+    private int consumptionHistoricThursday;
+    private int consumptionHistoricFriday;
+    private int consumptionHistoricSaturday;
+    private int consumptionHistoricSunday;
 
 }

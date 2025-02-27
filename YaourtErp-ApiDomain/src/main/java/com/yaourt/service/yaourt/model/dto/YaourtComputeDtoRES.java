@@ -12,16 +12,16 @@ import java.util.List;
 public class YaourtComputeDtoRES {
 
     private int yaourtNumber;
-    private List<DailyConsummation> dailyConsummationList = new ArrayList<>();
+    private List<DailyConsumption> dailyConsumptionList = new ArrayList<>();
 
     // -- CLASS --------------------------------------------------------------------------------------------------------
     @Getter
     @Setter
     @AllArgsConstructor
-    public static class DailyConsummation{
+    public static class DailyConsumption {
 
         private String date;
-        private int consummation;
+        private int consumption;
 
     }
 
