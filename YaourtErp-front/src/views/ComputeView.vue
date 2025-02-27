@@ -2,12 +2,65 @@
 
 // -- CALLBACKS
 import axios from "axios";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {YaourtComputeDtoRES} from "@/model/yaourt/YaourtComputeDtoRES.ts";
 import {YaourtComputeDtoREQ} from "@/model/yaourt/YaourtComputeDtoREQ.ts";
 import {StockDtoRes} from "@/model/stock/StockDtoRes.ts";
+import { LineChart } from "vue-chart-3";
+import {Chart, registerables, TimeScale} from "chart.js";
+import "chartjs-adapter-moment"; // 📌 Adaptateur obligatoire pour l'échelle de temps
+
 
 // -- CONF --------------------------------------------------------------------------
+Chart.register(...registerables, TimeScale); // 🔹 Enregistre les composants de Chart.js
+// Configuration du graphique
+const chartOptions = ref({
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    x: {
+      type: "time", // 📌 Activer l'échelle de temps
+      time: {
+        unit: "day", // 📌 Affichage par jour
+        tooltipFormat: "YYYY-MM-DD"
+      },
+      title: {
+        display: true,
+        text: "Date"
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: "Consommation"
+      }
+    }
+  }
+});
+
+// Liste des données (date + numberOfMoney)
+const dataList = ref([
+  { date: "2025-01-01", numberOfMoney: 500 },
+  { date: "2025-01-02", numberOfMoney: 700 },
+  { date: "2025-01-03", numberOfMoney: 400 },
+  { date: "2025-01-04", numberOfMoney: 600 },
+  { date: "2025-01-05", numberOfMoney: 800 }
+]);
+
+// 🔹 Extraction des données pour la courbe
+const chartData = computed(() => ({
+  labels: dataList.value.map(item => item.date), // Dates en labels
+  datasets: [
+    {
+      label: "Yearly yaourt consumption", // Légende
+      data: dataList.value.map(item => item.numberOfMoney),
+      borderColor: "blue", // Couleur de la ligne
+      backgroundColor: "rgba(0, 0, 255, 0.1)", // Couleur de remplissage
+      tension: 0.4 // Lissage de la courbe
+    }
+  ]
+}));
+
 
 
 // -- LIFECYCLE ----------------------------------------------------------------------
@@ -34,6 +87,21 @@ const stockDtoRes = ref<StockDtoRes | null>(null);
 const yaourtDtoRES = ref<YaourtComputeDtoRES | null>(null);
 const quantityToBuy = ref<number>(0);
 const quantityColisToBuy = ref<number>(0);
+
+// 🔹 Extraction des données pour la courbe
+const chartData2 = computed(() => ({
+  labels: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.date)??[], // Dates en labels
+  datasets: [
+    {
+      label: "Yearly yaourt consumption", // Légende
+      data: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.consumption)??[],
+      borderColor: "blue", // Couleur de la ligne
+      backgroundColor: "rgba(0, 0, 255, 0.1)", // Couleur de remplissage
+      tension: 0.4 // Lissage de la courbe
+    }
+  ]
+}));
+
 
 // -- Compute yaourts
 const computeYaourt = async () => {
@@ -148,7 +216,7 @@ const getNumberColis = () => {
       <div class="d-flex flex-row gap-2 w-100 p-0">
 
         <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
-          <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Date de départ:</h6>
+          <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Start date:</h6>
         </div>
 
         <input name="startDate" min="0" v-model="startDate" type="date" class="p-0 px-1 pt-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
@@ -176,7 +244,7 @@ const getNumberColis = () => {
 
     <div class="d-flex flex-row justify-center align-items-center gap-2">
       <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
-        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Colis:</h6>
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Package:</h6>
       </div>
 
       <div class="d-flex flex-row justify-center align-items-center ">
@@ -191,21 +259,25 @@ const getNumberColis = () => {
         <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center" >Date</h6>
       </div>
       <div class="d-flex flex-row justify-content-around align-items-center gap-2 w-50 ">
-        <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Consommation</h6>
+        <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Consumption</h6>
       </div>
     </div>
     <div class="d-flex flex-column justify-center align-items-center gap-2 w-100 table-container" v-if="quantityToBuy != 0">
 
       <table>
         <tbody>
-        <tr v-for="(item, index) in yaourtDtoRES?.dailyConsummationList" :key="index">
+        <tr v-for="(item, index) in yaourtDtoRES?.dailyConsumptionList" :key="index">
           <td class="w-50 text-center" >{{ item.date }}</td>
-          <td class="w-50 text-center">{{ item.consummation }}</td>
+          <td class="w-50 text-center">{{ item.consumption }}</td>
         </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Graphique -->
+    <div class="d-flex flex-row justify-content-around align-items-center mb-1 mt-1">
+      <LineChart :chartData="chartData2" :options="chartOptions" />
+    </div>
   </div>
 </template>
 
@@ -213,7 +285,7 @@ const getNumberColis = () => {
 .table-container {
   width: 100%;
   max-width: 400px; /* Largeur maximale du tableau */
-  max-height: 300px; /* Hauteur maximale avant scroll */
+  max-height: 250px; /* Hauteur maximale avant scroll */
   overflow-y: auto; /* Activation du scroll vertical */
   border: 1px solid #ccc; /* Bordure pour visibilité */
 }

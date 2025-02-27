@@ -162,7 +162,7 @@ const patch_FamilyConsummation = async () => {
 
     <div class="d-flex flex-row justify-content-around align-items-center gap-1 w-100">
       <div class="d-flex flex-row justify-a align-items-center">
-        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Family consummation historic 🧑👶👩</h6>
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Family consumption historic 🧑👶👩</h6>
       </div>
 
       <div class="d-flex flex-row justify-center align-items-center ">
@@ -178,7 +178,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="monday">Monday:</label>
 
-            <input name="monday" min="0" v-model="familyDtoREQ.consummationHistoricMonday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="monday" min="0" v-model="familyDtoREQ.consumptionHistoricMonday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -188,7 +188,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="tuesday">Tuesday:</label>
 
-            <input name="tuesday" min="0" v-model="familyDtoREQ.consummationHistoricTuesday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="tuesday" min="0" v-model="familyDtoREQ.consumptionHistoricTuesday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -197,7 +197,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="wednesday">Wednesday:</label>
 
-            <input name="wednesday" min="0" v-model="familyDtoREQ.consummationHistoricWednesday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="wednesday" min="0" v-model="familyDtoREQ.consumptionHistoricWednesday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -206,7 +206,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="thursday">Thursday:</label>
 
-            <input name="thursday" min="0" v-model="familyDtoREQ.consummationHistoricThursday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="thursday" min="0" v-model="familyDtoREQ.consumptionHistoricThursday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -215,7 +215,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="friday">Friday:</label>
 
-            <input name="friday" min="0" v-model="familyDtoREQ.consummationHistoricFriday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="friday" min="0" v-model="familyDtoREQ.consumptionHistoricFriday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -225,7 +225,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="saturday">Saturday:</label>
 
-            <input name="saturday" min="0" v-model="familyDtoREQ.consummationHistoricSaturday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="saturday" min="0" v-model="familyDtoREQ.consumptionHistoricSaturday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 
@@ -235,7 +235,7 @@ const patch_FamilyConsummation = async () => {
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="sunday">Sunday:</label>
 
-            <input name="sunday" min="0" v-model="familyDtoREQ.consummationHistoricSunday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
+            <input name="sunday" min="0" v-model="familyDtoREQ.consumptionHistoricSunday" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                    style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                  color:#393939;font-size:12px;font-weight:600"/>
 

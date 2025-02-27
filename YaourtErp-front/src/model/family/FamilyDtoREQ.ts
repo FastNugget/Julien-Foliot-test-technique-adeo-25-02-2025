@@ -1,11 +1,11 @@
 export class FamilyDtoREQ{
 
-    constructor(public consummationHistoricMonday:number,
-                public consummationHistoricTuesday:number,
-                public consummationHistoricWednesday:number,
-                public consummationHistoricThursday:number,
-                public consummationHistoricFriday:number,
-                public consummationHistoricSaturday:number,
-                public consummationHistoricSunday:number) {}
+    constructor(public consumptionHistoricMonday:number,
+                public consumptionHistoricTuesday:number,
+                public consumptionHistoricWednesday:number,
+                public consumptionHistoricThursday:number,
+                public consumptionHistoricFriday:number,
+                public consumptionHistoricSaturday:number,
+                public consumptionHistoricSunday:number) {}
 
 }

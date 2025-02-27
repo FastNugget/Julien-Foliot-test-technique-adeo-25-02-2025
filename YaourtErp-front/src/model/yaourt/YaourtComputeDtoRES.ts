@@ -1,12 +1,12 @@
 export class YaourtComputeDtoRES {
 
-    constructor(public yaourtNumber:number, public dailyConsummationList:Array<DailyConsummation>) {}
+    constructor(public yaourtNumber:number, public dailyConsumptionList:Array<DailyConsumption>) {}
 
 
 }
 
-export class DailyConsummation{
+export class DailyConsumption {
 
-    constructor(public date:string, public consummation:number) {}
+    constructor(public date:string, public consumption:number) {}
 
 }
