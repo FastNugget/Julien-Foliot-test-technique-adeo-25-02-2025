@@ -9,13 +9,14 @@ import {StockDtoRes} from "@/model/stock/StockDtoRes.ts";
 
 // -- CONF --------------------------------------------------------------------------
 
+
 // -- LIFECYCLE ----------------------------------------------------------------------
 
 onMounted(() => {
 
   // -- Get stock
   get_Stock();
-  setQuantityToBuy();
+  //setQuantityToBuy();
 
 });
 
@@ -25,7 +26,9 @@ onMounted(() => {
 
 // -- VARS
 const familyId = 1;
-const startDate = ref<string>('2025-01-06T09:30:00Z');
+const startDate = ref<string>('2025-01-06');
+const isoDate = ref("");
+
 
 const stockDtoRes = ref<StockDtoRes | null>(null);
 const yaourtDtoRES = ref<YaourtComputeDtoRES | null>(null);
@@ -40,6 +43,7 @@ const computeYaourt = async () => {
 
     // -- Call
     let request:YaourtComputeDtoREQ = new YaourtComputeDtoREQ(startDate.value);
+    request.dateBegin = isoDate.value;
     let response:YaourtComputeDtoRES = (await axios.put(`http://localhost:8080/api/v1/yaourt/compute/${familyId}`, request)).data;
 
     // -- Set
@@ -69,13 +73,16 @@ const get_Stock = async () => {
 
 const setQuantityToBuy = async () => {
 
+  if (!startDate.value) return;
+  const localDate = new Date(startDate.value);
+  isoDate.value = localDate.toISOString(); // ✅ Convertit en format UTC ISO 8601
+
   // -- Safe
   try {
 
     // -- Call
     await computeYaourt();
 
-    // -- Set yaourt
     // -- Check
     if (yaourtDtoRES.value == null || stockDtoRes.value == null) {
       return 0;
@@ -137,8 +144,12 @@ const getNumberColis = () => {
        style="border-width: 1px!important;border-color: #dcdcdc!important;border-style: solid; border-radius: 6px;">
 
     <div class="d-flex flex-row justify-center align-items-center ">
-      <div class="d-flex flex-row px-2 gap-2 w-100">
-        <label for="startDate">Date de départ:</label>
+
+      <div class="d-flex flex-row gap-2 w-100 p-0">
+
+        <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
+          <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Date de départ:</h6>
+        </div>
 
         <input name="startDate" min="0" v-model="startDate" type="date" class="p-0 px-1 pt-1 m-0 d-flex flex-column align-items-center justify-center flex-fill"
                style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
@@ -147,7 +158,8 @@ const getNumberColis = () => {
       </div>
 
       <button @click="setQuantityToBuy()" type="button" class="btn btn-primary p-1 px-2 m-0"
-              style="background: hsl(118,100%,37%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 600 ">Compute 🕹</button>
+              style="background: hsl(118,100%,37%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 600 ">Compute</button>
+
     </div>
 
     <div class="d-flex flex-row justify-center align-items-center gap-2">
@@ -174,7 +186,7 @@ const getNumberColis = () => {
 
     </div>
 
-    <div class="d-flex flex-row justify-center align-items-center gap-2 w-100 mt-1" style=" background: #f4f4f4;">
+    <div class="d-flex flex-row justify-center align-items-center gap-2 w-100 mt-1" style=" background: #f4f4f4;" v-if="quantityToBuy != 0">
       <div class="d-flex flex-row justify-content-around align-items-center gap-2 w-50 " >
         <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center" >Date</h6>
       </div>
@@ -182,7 +194,7 @@ const getNumberColis = () => {
         <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Consommation</h6>
       </div>
     </div>
-    <div class="d-flex flex-column justify-center align-items-center gap-2 w-100 table-container" >
+    <div class="d-flex flex-column justify-center align-items-center gap-2 w-100 table-container" v-if="quantityToBuy != 0">
 
       <table>
         <tbody>
