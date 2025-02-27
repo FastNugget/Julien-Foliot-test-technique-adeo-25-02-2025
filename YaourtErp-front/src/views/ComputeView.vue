@@ -11,7 +11,6 @@ import {Chart, registerables, TimeScale} from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
 import "chartjs-adapter-moment";
 
-
 // -- CONF --------------------------------------------------------------------------
 Chart.register(...registerables, TimeScale, zoomPlugin);
 
@@ -78,7 +77,6 @@ const yaourtDtoRES = ref<YaourtComputeDtoRES | null>(null);
 const quantityToBuy = ref<number>(0);
 const quantityColisToBuy = ref<number>(0);
 
-
 const chartData = computed(() => ({
   labels: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.date)??[], // Dates en labels
   datasets: [
@@ -91,7 +89,6 @@ const chartData = computed(() => ({
     }
   ]
 }));
-
 
 // -- Compute yaourts
 const computeYaourt = async () => {
@@ -236,7 +233,6 @@ const setQuantityToBuy = async () => {
         <button @click="setQuantityToBuy()" type="button" class="btn btn-primary p-1 px-2 m-0"
                 style="background: hsl(118,100%,37%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 600 ">Compute</button>
       </div>
-
 
     </div>
 

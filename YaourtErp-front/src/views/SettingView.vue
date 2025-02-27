@@ -170,7 +170,6 @@ const patch_FamilyConsummation = async () => {
       </div>
     </div>
 
-
     <div class="d-flex flex-row justify-center align-items-center gap-1 w-100 pt-2">
 
         <div class="d-flex flex-column justify-center align-items-center gap-1 w-100">
@@ -231,7 +230,6 @@ const patch_FamilyConsummation = async () => {
 
           </div>
 
-
           <div class="d-flex flex-row px-2 gap-2 w-100">
             <label for="sunday">Sunday:</label>
 
@@ -241,9 +239,7 @@ const patch_FamilyConsummation = async () => {
 
           </div>
 
-
         </div>
-
 
     </div>
 

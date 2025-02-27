@@ -11,31 +11,30 @@ import TitleView from "@/views/TitleView.vue";
       <img alt="Vue logo" class="logo m-0" src="@/assets/yogourt.png" width="200" height="200"/>
 
       <div class="wrapper flex-row align-items-center justify-center w-100">
+
         <TitleView msg="Yaourt ERP" />
 
         <nav class="d-flex flex-row justify-content-around align-items-center">
           <div class="d-flex flex-row justify-center align-items-center">
-            <RouterLink to="/" >Compute</RouterLink>
-            <RouterLink to="/settings" >Settings</RouterLink>
+            <RouterLink to="/">Compute</RouterLink>
+            <RouterLink to="/settings">Settings</RouterLink>
           </div>
-
         </nav>
+
       </div>
 
     </header>
 
-
-    <RouterView />
-
+    <RouterView/>
 
   </div>
 
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
-
 }
 
 .logo {
@@ -78,6 +77,4 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
-
 </style>
