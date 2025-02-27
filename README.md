@@ -1,5 +1,15 @@
 # YaourtErp
+___
 
+
+### This is a mono repo
+👉🏻 Open [YaourtErp-ApiDomain] and start the server<br>
+👉🏻 Open [YaourtErp-front] and start the webserver
+
+Now enjoy the app at http://localhost:5173/
+
+___
+### Here is the subject of the project
 Sujet FullStack : Optimisation de Stock de Yaourts
 Vous souhaitez optimiser la gestion de votre stock de yaourts dans votre réfrigérateur en
 automatisant la recommandation des quantités à acheter. Cette recommandation sera basée

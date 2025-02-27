@@ -29,7 +29,7 @@ public class YaourtController {
 
     // -- CONTROLLERS --------------------------------------------------------------------------------------------------
 
-    @GetMapping(value = "/yaourt/compute/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/yaourt/compute/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<YaourtComputeDtoRES> compute(@RequestBody @Valid YaourtComputeDtoREQ yaourtComputeDtoREQ, @PathVariable("id") String familyId){
 
         // -- Work

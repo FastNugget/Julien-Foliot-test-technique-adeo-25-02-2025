@@ -29,6 +29,7 @@ public class YaourtService {
     // -- MISC
     private volatile boolean isInit = false;
 
+
     // -- LIFECYCLE ----------------------------------------------------------------------------------------------------
 
     @PostConstruct
@@ -96,13 +97,13 @@ public class YaourtService {
 
         // -- Init
         FamilyDtoREQ familyDtoREQa = new FamilyDtoREQ();
-        familyDtoREQa.setConsummationHistoricMonday(1);
-        familyDtoREQa.setConsummationHistoricTuesday(2);
-        familyDtoREQa.setConsummationHistoricWednesday(1);
-        familyDtoREQa.setConsummationHistoricThursday(4);
-        familyDtoREQa.setConsummationHistoricFriday(9);
-        familyDtoREQa.setConsummationHistoricSaturday(6);
-        familyDtoREQa.setConsummationHistoricSunday(2);
+        familyDtoREQa.setConsummationHistoricMonday(3);
+        familyDtoREQa.setConsummationHistoricTuesday(3);
+        familyDtoREQa.setConsummationHistoricWednesday(3);
+        familyDtoREQa.setConsummationHistoricThursday(3);
+        familyDtoREQa.setConsummationHistoricFriday(3);
+        familyDtoREQa.setConsummationHistoricSaturday(4);
+        familyDtoREQa.setConsummationHistoricSunday(4);
 
         // -- Call
         FamilyDtoRES familyDtoRESa = this.familyService.createFamily(familyDtoREQa);
@@ -113,7 +114,7 @@ public class YaourtService {
         // -- Init
         StockDtoREQ stockDtoREQa = new StockDtoREQ();
         stockDtoREQa.setProductName("yaourt");
-        stockDtoREQa.setQuantity(2);
+        stockDtoREQa.setQuantity(3);
         stockDtoREQa.setQuantityMultiple(2);
         stockDtoREQa.setDeliveryDelay(2);
 

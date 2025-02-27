@@ -32,7 +32,7 @@ import utils.TestUtils;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = MainApplication.class)
@@ -121,7 +121,7 @@ public class TestYaourtController {
         yaourtComputeDtoREQ.setDateBegin("2025-01-06T09:30:00Z");
 
         MvcResult mvcResulta
-                = this.mockMvc.perform(get(String.format("/api/v1/yaourt/compute/%s", id))
+                = this.mockMvc.perform(put(String.format("/api/v1/yaourt/compute/%s", id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(yaourtComputeDtoREQ)))
                 .andExpect(status().isOk())

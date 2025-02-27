@@ -9,5 +9,4 @@ public class YaourtComputeDtoREQ {
 
     private String dateBegin;
 
-
 }
