@@ -13,8 +13,8 @@ import "chartjs-adapter-moment"; // 📌 Adaptateur obligatoire pour l'échelle 
 
 
 // -- CONF --------------------------------------------------------------------------
-Chart.register(...registerables, TimeScale, zoomPlugin); // 🔹 Enregistre les composants de Chart.js
-// Configuration du graphique
+Chart.register(...registerables, TimeScale, zoomPlugin);
+
 const chartOptions = ref({
   responsive: true,
   maintainAspectRatio: false,
@@ -55,31 +55,6 @@ const chartOptions = ref({
     }
   }
 });
-
-// Liste des données (date + numberOfMoney)
-const dataList = ref([
-  { date: "2025-01-01", numberOfMoney: 500 },
-  { date: "2025-01-02", numberOfMoney: 700 },
-  { date: "2025-01-03", numberOfMoney: 400 },
-  { date: "2025-01-04", numberOfMoney: 600 },
-  { date: "2025-01-05", numberOfMoney: 800 }
-]);
-
-// 🔹 Extraction des données pour la courbe
-const chartData = computed(() => ({
-  labels: dataList.value.map(item => item.date), // Dates en labels
-  datasets: [
-    {
-      label: "Yearly yaourt consumption", // Légende
-      data: dataList.value.map(item => item.numberOfMoney),
-      borderColor: "blue", // Couleur de la ligne
-      backgroundColor: "rgba(0, 0, 255, 0.1)", // Couleur de remplissage
-      tension: 0.4 // Lissage de la courbe
-    }
-  ]
-}));
-
-
 
 // -- LIFECYCLE ----------------------------------------------------------------------
 
@@ -154,6 +129,43 @@ const get_Stock = async () => {
   } finally {}
 }
 
+// -- Compute yaourts
+const calculateAverageConsumption = ():number => {
+
+  ///
+  if (!yaourtDtoRES?.value?.dailyConsumptionList || yaourtDtoRES?.value?.dailyConsumptionList.length === 0) {
+    return 0; // Évite la division par zéro
+  }
+
+  const totalConsumption:Array<number>= yaourtDtoRES?.value?.dailyConsumptionList.map(a => a.consumption);
+
+  return Math.max(...totalConsumption); // On arrondit la moyenne
+}
+
+/**
+ * 📌 Fonction pour trouver le meilleur multiple supérieur à 4
+ * @param averageConsumption - Consommation moyenne des yaourts
+ * @returns Le multiple optimal trouvé
+ */
+const findBestMultiple = (): number => {
+
+  // -- Check
+  if(quantityToBuy.value == 0){return 0;}
+
+  // -- Compute
+  let averageConsumption: number = calculateAverageConsumption();
+  if (averageConsumption <= 4) {
+    return 5; // On retourne 5 car on veut un multiple supérieur à 4
+  }
+
+  let bestMultiple = averageConsumption; // On commence par la moyenne arrondie
+
+  while (bestMultiple % averageConsumption !== 0 || bestMultiple <= 4) {
+    bestMultiple++; // On incrémente jusqu'à trouver un multiple optimal
+  }
+
+  return bestMultiple;
+}
 
 // -- UTILS -----------------------------------------------------------------
 
@@ -269,7 +281,26 @@ const getNumberColis = () => {
         <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">{{quantityColisToBuy}}</h6>
       </div>
 
+    </div>
 
+    <div class="d-flex flex-row justify-center align-items-center gap-2">
+      <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Average consumption:</h6>
+      </div>
+
+      <div class="d-flex flex-row justify-center align-items-center ">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">{{calculateAverageConsumption()}}</h6>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-center align-items-center gap-2">
+      <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Best Multiple:</h6>
+      </div>
+
+      <div class="d-flex flex-row justify-center align-items-center ">
+        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">{{findBestMultiple()}}</h6>
+      </div>
     </div>
 
     <div class="d-flex flex-row justify-center align-items-center gap-2 w-100 mt-1" style=" background: #f4f4f4;" v-if="quantityToBuy != 0">
@@ -280,6 +311,9 @@ const getNumberColis = () => {
         <h6 class="p-0 m-0 d-flex flex-row align-items-center justify-center">Consumption</h6>
       </div>
     </div>
+
+
+
     <div class="d-flex flex-column justify-center align-items-center gap-2 w-100 table-container" v-if="quantityToBuy != 0">
 
       <table>
