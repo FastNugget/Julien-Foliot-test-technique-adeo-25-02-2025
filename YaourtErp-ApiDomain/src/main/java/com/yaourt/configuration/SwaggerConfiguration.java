@@ -18,10 +18,10 @@ public class SwaggerConfiguration {
         return new OpenAPI().addSecurityItem(new SecurityRequirement().
                         addList("Bearer Authentication"))
                 //.components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
-                .info(new Info().title("OneTranslate-ApiDomain")
-                        .description("The main entry for project OneTranslate-ApiDomain")
+                .info(new Info().title("YaourtErp-ApiDomain")
+                        .description("The main entry for project YaourtErp-ApiDomain")
                         .version("1.0").contact(new Contact().name("Foliot Julien"))
-                        .license(new License().name("Team OneTranslate")));
+                        .license(new License().name("Team Yaourt Chocolat")));
 
     }
 
