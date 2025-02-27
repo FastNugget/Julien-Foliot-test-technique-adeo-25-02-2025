@@ -6,6 +6,7 @@ ___
 ### 👉🏻 Open [YaourtErp-ApiDomain]
 
 - to start the mongo cluster, run ```./script-start-compose-dev.sh start-db```
+- Reference the env/.env-dev-local in intellij 'edit configuration > Environment variable'
 - then start the server<br>
 
 ### 👉🏻 Open [YaourtErp-front]
