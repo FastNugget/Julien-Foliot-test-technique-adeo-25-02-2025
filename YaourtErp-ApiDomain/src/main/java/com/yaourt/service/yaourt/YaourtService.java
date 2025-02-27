@@ -45,11 +45,13 @@ public class YaourtService {
 
     public YaourtComputeDtoRES computeYaourtConsumationByYearForFamily(String familyId, YaourtComputeDtoREQ yaourtComputeDtoREQ){
 
+        System.out.println("DAT RECEIVE="+ yaourtComputeDtoREQ.getDateBegin());
         // -- Init
         YaourtComputeDtoRES yaourtComputeDtoRES = new YaourtComputeDtoRES();
 
         // -- Check
         FamilyDtoRES familyDtoRES = this.familyService.getFamily(familyId);
+        StockDtoRES stockDtoRES = this.stockService.getStock("1");
 
         // -- Compute
         Map<DayOfWeek, Integer> YAOURT_CONSUMPTION
