@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import axios from "axios";
 import {StockDtoRes} from "../model/stock/StockDtoRes.ts";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {StockDtoReq} from "../model/stock/StockDtoReq.ts";
 import {FamilyDtoREQ} from "@/model/family/FamilyDtoREQ.ts";
 
@@ -12,6 +12,14 @@ const familyDtoREQ = ref<FamilyDtoREQ>(new FamilyDtoREQ(0,0,0,0,0,0,0));
 // -- VARS
 const stockDtoRes = ref<StockDtoRes | null>(null);
 
+// -- LIFECYCLE ----------------------------------------------------------------------
+
+onMounted(() => {
+
+  // -- Get stock
+  get_InitApp();
+
+});
 
 // -- CALLBACKS HTTP -----------------------------------------------------------------
 
@@ -26,9 +34,6 @@ const get_InitApp = async () => {
     // -- Get stock
     get_Stock();
     get_Family();
-
-    // -- Alert
-    window.alert("App initialisé avec succès");
 
   } catch (err) {window.alert("Une erreur est survenue lors de l'initialisation des données");
   } finally {}
@@ -120,26 +125,6 @@ const patch_FamilyConsummation = async () => {
 </script>
 
 <template>
-
-
-  <!-- INIT DATA -->
-  <div class="d-flex flex-row justify-center align-items-center w-100 gap-1 p-1"
-       style="border-width: 1px;border-color:#dcdcdc;border-style:solid;border-radius:6px;">
-
-
-      <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
-        <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Init data: </h6>
-      </div>
-
-      <div class="d-flex flex-row justify-content-around align-items-center flex-fill">
-
-        <button @click="get_InitApp" type="button" class="btn btn-primary p-1 m-0 px-2 align-self-center"
-                style="background: hsl(125,99%,38%);border-width:0;max-height:24px;font-size:11px;font-weight:500">Click me 🚀</button>
-
-      </div>
-
-
-  </div>
 
   <!-- DELIVERY -->
   <div class="d-flex flex-column justify-center align-items-start w-100 gap-1 p-1"
