@@ -1,6 +1,6 @@
 export class YaourtComputeDtoRES {
 
-    constructor(public yaourtNumber:string, public dailyConsummationList:Array<DailyConsummation>) {}
+    constructor(public yaourtNumber:number, public dailyConsummationList:Array<DailyConsummation>) {}
 
 
 }
