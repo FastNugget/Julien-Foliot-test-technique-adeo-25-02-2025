@@ -6,7 +6,7 @@ import {StockDtoReq} from "../model/stock/StockDtoReq.ts";
 import {FamilyDtoREQ} from "@/model/family/FamilyDtoREQ.ts";
 
 // -- VARS UI
-const deliveryDelayInput = ref();
+const deliveryDelayInput = ref(0);
 const familyDtoREQ = ref<FamilyDtoREQ>(new FamilyDtoREQ(0,0,0,0,0,0,0));
 
 // -- VARS
@@ -29,7 +29,7 @@ const initVueData = async () => {
   try {
 
     // -- Init
-    get_Stock();
+    get_Stock().then(res => deliveryDelayInput.value = stockDtoRes.value?.deliveryDelay??0);
     get_Family();
 
   } catch (err) {window.alert("Une erreur est survenue lors de l'initialisation des données");
@@ -143,7 +143,7 @@ const patch_FamilyConsummation = async () => {
       </div>
 
       <div class="d-flex flex-row justify-center align-items-center ">
-        <input v-model="deliveryDelayInput" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center"
+        <input v-model="deliveryDelayInput" min="1" type="number" class="p-0 px-1 m-0 d-flex flex-column align-items-center justify-center"
                style="border-radius:6px;border-width:0;background:rgba(110,110,110,0.11);min-height: 23px!important;
                color:#393939;font-size:12px;font-weight:600"/>
       </div>

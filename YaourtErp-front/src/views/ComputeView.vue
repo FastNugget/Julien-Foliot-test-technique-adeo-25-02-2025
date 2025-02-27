@@ -86,7 +86,7 @@ const chartData2 = computed(() => ({
   labels: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.date)??[], // Dates en labels
   datasets: [
     {
-      label: "Yearly yaourt consumption", // Légende
+      label: "Yearly yaourt order", // Légende
       data: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.consumption)??[],
       borderColor: "blue", // Couleur de la ligne
       backgroundColor: "rgba(0, 0, 255, 0.1)", // Couleur de remplissage
@@ -244,9 +244,9 @@ const getNumberColis = () => {
   <div class="d-flex flex-column justify-center align-items-start w-100 gap-1 p-1"
        style="border-width: 1px!important;border-color: #dcdcdc!important;border-style: solid; border-radius: 6px;">
 
-    <div class="d-flex flex-row justify-center align-items-center ">
+    <div class="d-flex flex-row justify-center align-items-center w-100">
 
-      <div class="d-flex flex-row gap-2 w-100 p-0">
+      <div class="d-flex flex-row gap-2 p-0">
 
         <div class="d-flex flex-row justify-center align-items-center" style="width: 150px">
           <h6 class="p-0 m-0 d-flex flex-column align-items-center justify-center">Start date:</h6>
@@ -258,8 +258,11 @@ const getNumberColis = () => {
 
       </div>
 
-      <button @click="setQuantityToBuy()" type="button" class="btn btn-primary p-1 px-2 m-0"
-              style="background: hsl(118,100%,37%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 600 ">Compute</button>
+      <div class="d-flex flex-row justify-content-around align-items-center w-100">
+        <button @click="setQuantityToBuy()" type="button" class="btn btn-primary p-1 px-2 m-0"
+                style="background: hsl(118,100%,37%); border-width: 0; max-height: 24px;font-size:11px; font-weight: 600 ">Compute</button>
+      </div>
+
 
     </div>
 
