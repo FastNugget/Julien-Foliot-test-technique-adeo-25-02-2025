@@ -62,7 +62,6 @@ onMounted(() => {
 
   // -- Get stock
   get_Stock();
-  //setQuantityToBuy();
 
 });
 
