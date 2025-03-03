@@ -39,15 +39,15 @@ const chartOptions = ref({
   plugins: {
     zoom: {
       pan: {
-        enabled: true, // 📌 Permet de faire glisser le graphique horizontalement
+        enabled: true, // -- Graphique horizontal scroll
         mode: "x"
       },
       zoom: {
         wheel: {
-          enabled: true // 📌 Active le zoom avec la molette de la souris
+          enabled: true // -- Wheel zoom
         },
         pinch: {
-          enabled: true // 📌 Active le zoom tactile sur mobile
+          enabled: true // -- tactile zoom
         },
         mode: "x"
       }
@@ -81,11 +81,11 @@ const chartData = computed(() => ({
   labels: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.date)??[], // Dates en labels
   datasets: [
     {
-      label: "Yearly yaourt order", // Légende
+      label: "Yearly yaourt order",
       data: yaourtDtoRES?.value?.dailyConsumptionList.map(item => item.consumption)??[],
-      borderColor: "blue", // Couleur de la ligne
-      backgroundColor: "rgba(0, 0, 255, 0.1)", // Couleur de remplissage
-      tension: 0.4 // Lissage de la courbe
+      borderColor: "blue",
+      backgroundColor: "rgba(0, 0, 255, 0.1)",
+      tension: 0.4
     }
   ]
 }));
@@ -169,7 +169,7 @@ const setQuantityToBuy = async () => {
 
   // -- Init
   const localDate = new Date(startDate.value);
-  isoDate.value = localDate.toISOString(); // ✅ Convertit en format UTC ISO 8601
+  isoDate.value = localDate.toISOString();
 
   // -- Safe
   try {

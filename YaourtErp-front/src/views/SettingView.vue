@@ -103,7 +103,6 @@ const get_Family = async () => {
 
 const patch_FamilyConsummation = async () => {
 
-  console.log("wa")
   // -- Check stock value
   if(stockDtoRes.value == null) {
     window.alert("Veuillez initialiser l'application");
